@@ -1,7 +1,7 @@
-import battlefield, random
+import movement
 class Players:
 # constructor 
-    def __init__(players, battlefield, width=100, height=100, x_posn=50, y_posn=50, color="red", x_speed=23, y_speed=23):
+    def __init__(players, battlefield, width=100, height=100, x_posn=50, y_posn=50, color="blue", x_speed=23, y_speed=23):
         players.width = width
         players.height = height
         players.x_posn = x_posn
@@ -12,7 +12,7 @@ class Players:
         players.x_speed = x_speed
         players.y_speed = y_speed
         players.battlefield = battlefield
-        players.rectangle = players.battlefield.draw_rectangle(players)
+        players.rectangle = players.battlefield.draw_square(players)
 # methods
     def start_position(players):
         players.x_posn = players.x_start
@@ -33,63 +33,60 @@ class Players:
         v_centre_m = top_m + r
         h_centre_m = left_m + r
 
-# find out where the shooter shot
-def move_up(players, master):
-    players.y_posn = players.y_posn - players.y_speed
-    if(players.y_posn <= 0):
-        players.y_posn = 0
-        x1 = players.x_posn
-        x2 = players.x_posn+players.width
-        y1 = players.y_posn
-        y2 = players.y_posn+players.height
-        players.battlefield.move_item(players.rectangle, x1, y1, x2, y2)
-    def move_down(players, master):
-        players.y_posn = players.y_posn + players.y_speed
-        far_bottom = players.battlefield.height - players.height
-        if(players.y_posn >= far_bottom):
-            players.y_posn = far_bottom
-        x1 = players.x_posn
-        x2 = players.x_posn+players.width
-        y1 = players.y_posn
-        y2 = players.y_posn+players.height
-        players.battlefield.move_item(players.rectangle, x1, y1, x2, y2)
-        players.x_posn = players.x_posn - players.x_speed
-        if(players.x_posn <= 0):
-            players.x_posn = 0
-        x1 = players.x_posn
-        x2 = players.x_posn+players.width
-        y1 = players.y_posn
-        y2 = players.y_posn+players.height
-        players.table.move_item(players.rectangle, x1, y1, x2, y2)
-    def move_right(players, master):
-        players.x_posn = players.x_posn + players.x_speed
-        far_right = players.battlefield.width - players.width
-        if(players.x_posn >= far_right):
-            players.x_posn = far_right
-        x1 = players.x_posn
-        x2 = players.x_posn+players.width
-        y1 = players.y_posn
-        y2 = players.y_posn+players.height
-        players.battlefield.move_item(players.rectanlge, x1, y1, x2, y2)
+    def draw_circle (self, circle):
+        x1 = circle.x_posn
+        x2 = circle.x_posn + square.width
+        y1 = circle.y_posn
+        y2 = circle.y_posn + square.height
+        c = circle.color
+        return self.canvas.create_circle(x1, y1, x2, y2, fill=c)
 
+    
+    def move_up(self, master):
+        self.y_posn = self.y_posn - self.y_speed
+        if(self.y_posn <= 0):
+            self.y_posn = 0
+        x1 = self.x_posn
+        x2 = self.x_posn+self.width
+        y1 = self.y_posn
+        y2 = self.y_posn+self.height
+        self.table.move_item(self.circle, x1, y1, x2, y2)
 
+    def move_down(self, master):
+        self.y_posn = self.y_posn + self.y_speed
+        far_bottom = self.table.height - self.height
+        if(self.y_posn >= far_bottom):
+            self.y_posn = far_bottom
+        x1 = self.x_posn
+        x2 = self.x_posn+self.width
+        y1 = self.y_posn
+        y2 = self.y_posn+self.height
+        self.table.move_item(self.circle, x1, y1, x2, y2)
 
+    def move_left(self, master):
+        self.x_posn = self.x_posn - self.x_speed
+        if(self.x_posn <= 0):
+            self.x_posn = 0
+        x1 = self.x_posn
+        x2 = self.x_posn+self.width
+        y1 = self.y_posn
+        y2 = self.y_posn+self.height
+        self.table.move_item(self.circle, x1, y1, x2, y2)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    
+    def move_right(self, master):
+        self.x_posn = self.x_posn + self.x_speed
+        far_right = self.table.width - self.width
+        if(self.x_posn >= far_right):
+            self.x_posn = far_right
+        x1 = self.x_posn
+        x2 = self.x_posn+self.width
+        y1 = self.y_posn
+        y2 = self.y_posn+self.height
+        self.table.move_item(self.circle, x1, y1, x2, y2)
+    def detect_collision(self, ball, sides_sweet_spot=True, topnbottom_sweet_spot=False):
+        collision_direction = " "
+        collision = False
+        feel = 5
+        
 
 
