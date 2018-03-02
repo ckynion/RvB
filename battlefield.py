@@ -1,7 +1,8 @@
 from tkinter import *
-
+import player
 class Battlefield:
-    
+
+
     def __init__(self, window, color="tan", width=1000, height=800):
         self.width = width
         self.height = height
@@ -16,6 +17,4 @@ class Battlefield:
         y2 = rectangle.y_posn + rectangle.height
         c = rectangle.color
         return self.canvas.create_rectangle(x1, y1, x2, y2, fill=c)
-
-    def move_item(self, item, x1, y1, x2, y2):
-        self.canvas.coords(item, x1, y1, x2, y2)
+         
